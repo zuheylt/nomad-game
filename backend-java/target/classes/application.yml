@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: monad-republic-backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/monad_republic
+    username: monad
+    password: monad
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+server:
+  port: 8080
+
+blockchain:
+  rpc-url: https://testnet-rpc.monad.xyz
+  chain-id: 10143
+  relayer-private-key: ${RELAYER_PRIVATE_KEY:}
+  contracts:
+    land-registry: ${LAND_REGISTRY_ADDRESS:}
+    currency-factory: ${CURRENCY_FACTORY_ADDRESS:}
+    game-core: ${GAME_CORE_ADDRESS:}
+
+logging:
+  level:
+    com.monadrepublic: INFO
+    org.web3j: WARN
