@@ -46,7 +46,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="min-h-screen bg-base-100 p-6">
-      <h1 className="text-4xl font-bold text-center mb-2 text-primary">Monad Republic</h1>
+      <h1 className="text-4xl font-bold text-center mb-2 text-primary">Nomad</h1>
       <p className="text-center text-gray-400 mb-8 text-sm">Eco × EVE × Foxhole — on Monad L1</p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 max-w-5xl mx-auto">

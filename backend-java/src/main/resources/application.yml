@@ -1,10 +1,10 @@
 spring:
   application:
-    name: monad-republic-backend
+    name: nomad-backend
   datasource:
-    url: jdbc:postgresql://localhost:5432/monad_republic
-    username: monad
-    password: monad
+    url: jdbc:postgresql://localhost:5432/nomad
+    username: nomad
+    password: nomad
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -25,11 +25,11 @@ blockchain:
   chain-id: 10143
   relayer-private-key: ${RELAYER_PRIVATE_KEY:}
   contracts:
-    land-registry: ${LAND_REGISTRY_ADDRESS:}
-    currency-factory: ${CURRENCY_FACTORY_ADDRESS:}
-    game-core: ${GAME_CORE_ADDRESS:}
+    land-registry: ${LAND_REGISTRY_ADDRESS:0x47B98192613D218dE84ca3Fa5Dd04dA7AF6b2887}
+    currency-factory: ${CURRENCY_FACTORY_ADDRESS:0x6686359f676EcfA5e51A6CC9B7F6b80d168a8292}
+    game-core: ${GAME_CORE_ADDRESS:0x2e9a011abA213637C90A819D7Fb64ef3F20a1D68}
 
 logging:
   level:
-    com.monadrepublic: INFO
+    com.nomad: INFO
     org.web3j: WARN

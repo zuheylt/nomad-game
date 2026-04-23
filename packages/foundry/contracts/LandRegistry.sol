@@ -13,7 +13,7 @@ contract LandRegistry is ERC721, Ownable {
 
     uint256 private _nextTokenId;
 
-    constructor(address initialOwner) ERC721("MonadLand", "LAND") Ownable(initialOwner) {}
+    constructor(address initialOwner) ERC721("NomadLand", "LAND") Ownable(initialOwner) {}
 
     function tileKey(int16 x, int16 y) public pure returns (bytes32) {
         return keccak256(abi.encodePacked(x, y));

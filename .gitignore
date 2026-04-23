@@ -1,0 +1,32 @@
+# Java / Maven
+backend-java/target/
+*.class
+
+# Node
+node_modules/
+packages/nextjs/.next/
+packages/nextjs/package-lock.json
+
+# Env / secrets
+.env
+.env.local
+packages/nextjs/.env.local
+
+# Foundry
+packages/foundry/cache/
+packages/foundry/out/
+
+# Unity build artifacts
+unity/*/[Ll]ibrary/
+unity/*/[Tt]emp/
+unity/*/[Oo]bj/
+unity/*/[Bb]uild/
+unity/*/[Bb]uilds/
+unity/*/*.sln
+unity/*/*.csproj
+unity/*/UserSettings/
+unity/**/*.pidb
+unity/**/*.suo
+unity/**/*.userprefs
+unity/**/*.unityproj
+unity/**/.vs/

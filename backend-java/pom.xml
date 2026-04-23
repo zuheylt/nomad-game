@@ -11,10 +11,10 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.monadrepublic</groupId>
+    <groupId>com.nomad</groupId>
     <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>monad-republic-backend</name>
+    <name>nomad-backend</name>
 
     <properties>
         <java.version>21</java.version>

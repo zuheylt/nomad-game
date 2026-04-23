@@ -1,0 +1,6 @@
+{
+  "0x2e9a011abA213637C90A819D7Fb64ef3F20a1D68": "GameCore",
+  "0x47B98192613D218dE84ca3Fa5Dd04dA7AF6b2887": "LandRegistry",
+  "0x6686359f676EcfA5e51A6CC9B7F6b80d168a8292": "PlayerCurrencyFactory",
+  "networkName": "monad-testnet"
+}
