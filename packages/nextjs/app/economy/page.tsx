@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useReadContract, useWriteContract, useWaitForTransactionReceipt, useAccount } from "wagmi";
 import { parseUnits } from "viem";
 import { monadTestnet } from "~~/scaffold.config";
 
@@ -67,30 +67,30 @@ function CreateCurrencyForm({ onCreated }: { onCreated: () => void }) {
   const [symbol,      setSymbol]      = useState("");
   const [supply,      setSupply]      = useState("1000000");
   const [description, setDescription] = useState("");
-  const [error,       setError]       = useState("");
 
-  const { writeContract, data: txHash, isPending } = useWriteContract();
+  const { address, isConnected } = useAccount();
+  const { writeContract, data: txHash, isPending, error: writeError, reset } = useWriteContract();
   const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash: txHash });
 
-  if (isSuccess) {
-    onCreated();
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      onCreated();
+      setName(""); setSymbol(""); setSupply("1000000"); setDescription("");
+      reset();
+    }
+  }, [isSuccess]);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
-    if (!name || !symbol || !supply) { setError("Name, symbol, and supply are required."); return; }
-    try {
-      writeContract({
-        address: FACTORY,
-        abi: FACTORY_ABI,
-        functionName: "createCurrency",
-        args: [name, symbol, parseUnits(supply, 18), description],
-        chainId: monadTestnet.id,
-      });
-    } catch (err: any) {
-      setError(err.message ?? "Unknown error");
-    }
+    if (!name || !symbol || !supply) return;
+    reset();
+    writeContract({
+      address: FACTORY,
+      abi: FACTORY_ABI,
+      functionName: "createCurrency",
+      args: [name, symbol, parseUnits(supply, 18), description],
+      chainId: monadTestnet.id,
+    });
   }
 
   return (
@@ -118,7 +118,11 @@ function CreateCurrencyForm({ onCreated }: { onCreated: () => void }) {
                  onChange={e => setDescription(e.target.value)} />
         </div>
 
-        {error && <p className="col-span-2 text-red-400 text-sm">{error}</p>}
+        {writeError && (
+          <p className="col-span-2 text-red-400 text-sm break-all">
+            {(writeError as any).shortMessage ?? writeError.message}
+          </p>
+        )}
 
         {txHash && (
           <div className="col-span-2 text-xs text-gray-400 break-all">
@@ -130,10 +134,16 @@ function CreateCurrencyForm({ onCreated }: { onCreated: () => void }) {
         )}
 
         <div className="col-span-2">
-          <button type="submit" className="btn btn-primary w-full"
-                  disabled={isPending || isConfirming}>
-            {isPending ? "Waiting for wallet..." : isConfirming ? "Confirming..." : "Create Currency on Monad"}
-          </button>
+          {!isConnected ? (
+            <p className="text-center text-yellow-400 text-sm">
+              Connect your wallet (top-right) to create a currency
+            </p>
+          ) : (
+            <button type="submit" className="btn btn-primary w-full"
+                    disabled={isPending || isConfirming || !name || !symbol}>
+              {isPending ? "Check your wallet..." : isConfirming ? "Confirming on Monad..." : "Create Currency on Monad"}
+            </button>
+          )}
         </div>
       </form>
     </div>

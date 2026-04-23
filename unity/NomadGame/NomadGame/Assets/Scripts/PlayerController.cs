@@ -104,8 +104,9 @@ public class PlayerController : MonoBehaviour
     void DetectTileUnderfoot()
     {
         float s = config != null ? config.tileSize : 1f;
-        CurrentTileX = Mathf.RoundToInt(transform.position.x / s);
-        CurrentTileY = Mathf.RoundToInt(transform.position.z / s);
+        // FloorToInt with +0.5 offset matches tile centres at (n*s, 0, n*s)
+        CurrentTileX = Mathf.FloorToInt(transform.position.x / s + 0.5f);
+        CurrentTileY = Mathf.FloorToInt(transform.position.z / s + 0.5f);
         bool claimed = world != null && world.IsClaimed(CurrentTileX, CurrentTileY);
         UIManager.Instance?.ShowLandBanner(!claimed, CurrentTileX, CurrentTileY);
     }
